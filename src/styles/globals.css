@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand */
+  --color-brand: #49bbbd;
+  --color-brand-dark: #3faaac;
+  --color-brand-soft: #9dd6d7;
+  --color-brand-tint: #e0f4f4;
+
+  /* Text */
+  --color-ink: #252641;
+  --color-heading: #2f327d;
+  --color-body: #696984;
+  --color-muted: #9da0b2;
+  --color-footer-text: #b2b3cf;
+
+  /* Surfaces */
+  --color-sky: #e9f3ff;
+  --color-sky-deep: #dceeff;
+
+  /* Accents */
+  --color-accent-orange: #f48c06;
+  --color-accent-pink: #f45b69;
+  --color-accent-blue: #5b72ee;
+  --color-accent-sky: #29b9e7;
+  --color-accent-green: #23bd33;
+  --color-star: #f5b72f;
+
+  /* Lesson-list pastels */
+  --color-pastel-blue: #e9f3ff;
+  --color-pastel-peach: #fce2b6;
+  --color-pastel-pink: #fad4d6;
+
+  --spacing-100: 25rem;
+  --spacing-105: 26.25rem;
+  --spacing-110: 27.5rem;
+  --spacing-120: 30rem;
+  --spacing-130: 32.5rem;
+  --spacing-140: 35rem;
+  --spacing-360: 90rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    background-color: #ffffff;
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-heading);
+    text-wrap: balance;
+  }
+
+  /* Visible keyboard focus on every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility hero-curve {
+  /* Elliptical bottom edge of the teal hero block */
+  border-bottom-left-radius: 50% 11%;
+  border-bottom-right-radius: 50% 11%;
+}
+
+@utility no-scrollbar {
+  /* Hides the scrollbar on horizontal carousels without disabling scroll. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility glass-card {
+  background-color: rgb(255 255 255 / 0.25);
+  backdrop-filter: blur(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
