@@ -62,7 +62,7 @@ export function Hero() {
             </span>
           </div>
 
-          {/* Chart chip */}
+          {/* Chart chip init */}
           <div className="absolute top-[20%] right-0 flex h-14 w-14 items-center justify-center rounded-xl bg-accent-pink shadow-lg">
             <BsBarChartFill aria-hidden className="text-2xl text-white" />
           </div>
