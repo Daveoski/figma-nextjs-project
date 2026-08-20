@@ -7,11 +7,10 @@ import { AVATARS, IMAGES } from "@/data/site";
 
 export function Hero() {
   return (
-    <section className="relative isolate">
+    <section className="isolate">
       {/* Teal hero band — fixed height, so everything below it stays white */}
-      <div className="hero-curve absolute inset-x-0 top-0 -z-10 h-110 bg-brand sm:h-120 lg:h-130" />
-
-      <div className="mx-auto grid max-w-360 grid-cols-1 items-start gap-10 px-6 pt-28 lg:grid-cols-2 lg:px-14 lg:pt-36">
+      <div className="hero-curve relative overflow-hidden inset-x-0 top-0 -z-10 h-110 bg-brand sm:h-120 lg:h-160">
+              <div className="mx-auto grid max-w-360 grid-cols-1 items-start gap-10 px-6 pt-28 lg:grid-cols-2 lg:px-14 lg:pt-36">
         {/* Copy */}
         <div className="max-w-xl">
           <h1 className="text-4xl leading-[1.25] font-bold tracking-tight text-white sm:text-5xl lg:text-[54px]">
@@ -49,7 +48,7 @@ export function Hero() {
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-contain object-[72%_100%]"
+            className="origin-bottom object-contain object-[72%_100%] scale-[0.86]"
           />
 
           {/* 250k Assisted Student */}
@@ -109,6 +108,8 @@ export function Hero() {
           </div>
         </div>
       </div>
+      </div>
+
     </section>
   );
 }

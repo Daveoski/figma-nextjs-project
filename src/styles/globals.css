@@ -43,11 +43,43 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   body {
     background-color: #ffffff;
     color: var(--color-body);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  div,
+  nav,
+  article,
+  header,
+  footer {
+    max-width: 100%;
   }
 
   h1,
@@ -60,11 +92,46 @@
     text-wrap: balance;
   }
 
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
   /* Visible keyboard focus on every interactive element. */
   :focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;
     border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    html,
+    body {
+      overflow-x: hidden;
+    }
+
+    body {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    main,
+    section,
+    article,
+    header,
+    footer,
+    nav {
+      width: 100%;
+      max-width: 100%;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
 

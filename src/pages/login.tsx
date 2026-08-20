@@ -2,13 +2,44 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { z } from "zod";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { PillField } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { IMAGES } from "@/data/site";
 
+const loginSchema = z.object({
+  identifier: z.string().trim().min(1, "Enter your email or username."),
+  password: z.string().min(1, "Enter your password."),
+});
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<"identifier" | "password", string>>>({});
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const result = loginSchema.safeParse(
+      Object.fromEntries(new FormData(event.currentTarget)),
+    );
+
+    if (!result.success) {
+      const nextErrors: Partial<Record<"identifier" | "password", string>> = {};
+
+      for (const issue of result.error.issues) {
+        const field = issue.path[0];
+        if (field === "identifier" || field === "password") {
+          nextErrors[field] = issue.message;
+        }
+      }
+
+      setErrors(nextErrors);
+      return;
+    }
+
+    setErrors({});
+  }
 
   return (
     <>
@@ -31,15 +62,21 @@ export default function LoginPage() {
           </>
         }
       >
-        <form onSubmit={(e) => e.preventDefault()} className="grid gap-5">
+        <form onSubmit={handleSubmit} className="grid gap-5" noValidate>
           <PillField
             label="Email or username"
             name="identifier"
             type="email"
             autoComplete="username"
             placeholder="you@example.com"
-            required
+            aria-invalid={Boolean(errors.identifier)}
+            aria-describedby={errors.identifier ? "identifier-error" : undefined}
           />
+          {errors.identifier && (
+            <p id="identifier-error" className="-mt-3 text-sm text-accent-pink">
+              {errors.identifier}
+            </p>
+          )}
 
           <PillField
             label="Password"
@@ -47,7 +84,8 @@ export default function LoginPage() {
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             placeholder="••••••••"
-            required
+            aria-invalid={Boolean(errors.password)}
+            aria-describedby={errors.password ? "password-error" : undefined}
             trailing={
               <button
                 type="button"
@@ -60,6 +98,11 @@ export default function LoginPage() {
               </button>
             }
           />
+          {errors.password && (
+            <p id="password-error" className="-mt-3 text-sm text-accent-pink">
+              {errors.password}
+            </p>
+          )}
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <label className="flex items-center gap-2 text-sm text-body">
