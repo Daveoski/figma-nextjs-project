@@ -19,83 +19,71 @@ const EXPLORE_ROWS = [
  * expanded card, mimicking a shelf of books.
  */
 export function ExploreCourse() {
+  const course = FEATURED_COURSES[0];
+
   return (
-    <section className="bg-sky/50 py-20">
-      <Container>
-        <h2 className="text-2xl font-bold sm:text-3xl">Explore Course</h2>
-        <p className="mt-2 text-sm text-body">
-          Ut sed metus Nulla facilisi. Phasellus sollicitudin nulla et quam
-          mattis feugiat.
-        </p>
-
-        <div className="mt-10 space-y-8">
-          {EXPLORE_ROWS.map((row, rowIndex) => {
-            const course = FEATURED_COURSES[rowIndex];
-
-            return (
-              <div key={row.label}>
-                <RowHeading title={row.label} href="/courses" />
-
-                <div className="mt-4 grid items-center gap-6 lg:grid-cols-[1fr_minmax(0,320px)]">
-                  {/* Spines */}
-                  <ul
-                    aria-hidden
-                    className="no-scrollbar flex items-end gap-2 overflow-x-auto"
-                  >
-                    {Array.from({ length: 14 }, (_, i) => (
-                      <li
-                        key={i}
-                        className="h-24 w-6 shrink-0 rounded-md sm:h-28"
-                        style={{
-                          backgroundColor: row.tint,
-                          opacity: 0.25 + ((i % 5) + 1) * 0.15,
-                        }}
-                      />
-                    ))}
-                  </ul>
-
-                  {/* Featured card for the row */}
-                  <article className="rounded-xl bg-white p-4 shadow-[0_12px_35px_-16px_rgba(47,50,125,0.3)]">
-                    <div className="flex gap-4">
-                      <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-lg">
-                        <Image
-                          src={course.image}
-                          alt=""
-                          fill
-                          sizes="80px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="text-sm leading-snug font-semibold text-ink">
-                          Integer id Orc Sed Ante Tincidunt
-                        </h3>
-                        <p className="mt-1 line-clamp-2 text-xs text-body">
-                          {course.blurb}
-                        </p>
-                        <div className="mt-2 flex items-center gap-2">
-                          <Stars value={5} size="text-[10px]" />
-                          <span className="text-xs font-bold text-accent-orange">
-                            $ 400
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <ButtonLink
-                      href={`/courses/${course.slug}`}
-                      variant="outline"
-                      size="sm"
-                      className="mt-4 w-full"
-                    >
-                      EXPLORE
-                    </ButtonLink>
-                  </article>
-                </div>
-              </div>
-            );
-          })}
+    <section className="bg-[#edf5f5] py-20">
+      <Container className="max-w-[1160px]">
+        <div className="mb-9 overflow-hidden rounded-[2rem] border-[3px] border-[#5ed2d0] bg-[#f4f5f7] shadow-[0_8px_30px_-18px_rgba(47,50,125,0.45)]">
+          <div className="flex min-h-[92px] items-center justify-center px-5 py-6">
+            <span className="text-center text-[2.15rem] font-medium tracking-[0.02em] text-[#4dc7c9] sm:text-[2.6rem]">
+              EXPLORE
+            </span>
+          </div>
         </div>
+
+        <div className="mb-6 flex items-end justify-between gap-6">
+          <h2 className="text-[2.75rem] leading-none font-medium text-[#1d1f38] tracking-[-0.04em]">
+            Aenean Facilisis
+          </h2>
+          <a
+            href="/courses"
+            className="flex items-center gap-2 text-[2rem] font-medium tracking-[-0.03em] text-[#4dc7c9] transition-opacity hover:opacity-80"
+          >
+            <span>See all</span>
+            <span aria-hidden>→</span>
+          </a>
+        </div>
+
+        <div className="mb-6 flex items-end gap-2 overflow-hidden rounded-[1.25rem]">
+          {Array.from({ length: 14 }, (_, i) => (
+            <div
+              key={i}
+              className="h-20 w-[2.1rem] shrink-0 rounded-[0.6rem] bg-[#8ad8d6] opacity-80 sm:h-24 sm:w-[2.5rem]"
+              style={{ opacity: 0.35 + ((i % 5) + 1) * 0.12 }}
+            />
+          ))}
+        </div>
+
+        <article className="overflow-hidden rounded-[2rem] border border-[#e6eceb] bg-white p-5 shadow-[0_22px_36px_-28px_rgba(47,50,125,0.35)] sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+            <div className="relative h-32 w-full max-w-[190px] shrink-0 overflow-hidden rounded-[1.4rem] bg-[#c3d2d8] sm:h-36">
+              <Image
+                src={course.image}
+                alt="Course cover"
+                fill
+                sizes="190px"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <h3 className="text-[2rem] leading-[1.15] font-medium tracking-[-0.04em] text-[#1d1f38]">
+                Integer id Orc Sed Ante Tincidunt
+              </h3>
+              <p className="mt-3 max-w-[780px] text-[1.05rem] leading-7 text-[#70738a]">
+                {course.blurb}
+              </p>
+
+              <div className="mt-4 flex items-center gap-3">
+                <Stars value={5} size="text-[1rem]" />
+                <span className="text-[1.05rem] font-semibold text-[#f48c06]">
+                  $ 400
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
       </Container>
     </section>
   );
